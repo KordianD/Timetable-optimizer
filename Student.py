@@ -1,5 +1,6 @@
 
-class Subject:
-    def __init__(self, name, num_of_terms=4):
-        self.name = name
-        self.num_of_terms = num_of_terms
+class Student:
+    def __init__(self, id, first_name='Jan', last_name='Kowalski'):
+        self.id = id
+        self.first_name = first_name
+        self.last_name = last_name
