@@ -1,4 +1,5 @@
 import numpy as np
+import random
 
 class Student:
     def __init__(self, id, first_name='Jan', last_name='Kowalski'):
@@ -9,5 +10,7 @@ class Student:
 
     def generate_random_timetable(self, subjects):
         for subject in subjects:
-            self.timetable[subject.name] = subject.terms[np.random.random_integers(0, len(subject.terms) - 1)]
-		
+            self.timetable[subject.name] = random.choice(subject.terms)
+
+    def calculate_student_fitness(self):
+        pass

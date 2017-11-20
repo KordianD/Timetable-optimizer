@@ -1,6 +1,7 @@
 from Student import Student
 from Subject import Subject
 from configuration import *
+from Bee import Bee
 
 
 class Population:
@@ -12,5 +13,6 @@ class Population:
         for bee in self.bees:
             bee.generate_random_solution(search_space)
 
-    def calculate_fitness(self):
-        pass
+    def calculate_population_fitness(self):
+        for bee in self.bees:
+            pass

@@ -12,3 +12,6 @@ class Bee():
         
         for student in self.students:
             student.generate_random_timetable(self.subjects)
+
+    def calculate_bee_fitness(self):
+        pass
