@@ -9,5 +9,5 @@ class Student:
 		
     def generate_random_timetable(self, subjects):
         for subject in subjects:
-            self.timetable[subject.name] = subject.terms[np.random.random_integers(0, len(subject.terms))]
+            self.timetable[subject.name] = subject.terms[np.random.random_integers(0, len(subject.terms) - 1)]
 		
