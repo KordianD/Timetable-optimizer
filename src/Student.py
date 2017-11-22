@@ -26,7 +26,7 @@ class Student:
         overlapped_in_minutes = 0
         for index, starting_hour in enumerate(day_classwork[:-1]):
             for elem in day_classwork[:-1]:
-                slot_difference = day_classwork[index+1].day - day_classwork[index].day
+                slot_difference = day_classwork[index+1].hour - day_classwork[index].hour
                 if slot_difference < TIME_SLOTS:
                     overlapped_in_minutes += slot_difference * DIFFERENCE_BETWEEN_STARTING_CLASSES
 
