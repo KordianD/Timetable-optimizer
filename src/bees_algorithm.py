@@ -1,7 +1,4 @@
-from Student import Student
-from Subject import Subject
-from configuration import *
-from Bee import Bee
+from src.Bee import Bee
 
 
 class Population:

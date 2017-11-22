@@ -1,5 +1,5 @@
-from Student import Student
-from Subject import Subject
+from src.Student import Student
+from src.Subject import Subject
 
 class Bee():
     def __init__(self, num_of_students, names_of_subjects):
