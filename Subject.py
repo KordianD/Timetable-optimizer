@@ -1,4 +1,6 @@
 import numpy as np
+from Classwork import Classwork
+from configuration import *
 
 
 class Subject:
@@ -9,5 +11,7 @@ class Subject:
 
     def generate_random_terms(self, search_space):
         for _ in range(self.num_of_terms):
-            self.terms.append((np.random.random_integers(search_space[0][0], search_space[0][1]),
-                               np.random.random_integers(search_space[1][0], search_space[1][1])))
+            random_date = (np.random.random_integers(min(DAYS_SPACE), max(DAYS_SPACE),
+                               np.random.random_integers(min(HOURS_SPACE)), max(HOURS_SPACE)))
+
+            self.terms.append(Classwork(self.name, random_date))

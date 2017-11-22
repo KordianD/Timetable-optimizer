@@ -4,4 +4,5 @@ NUM_OF_SITES = 3
 MAX_GENS = 500
 NAMES_OF_SUBJECTS = ['Sieci komputerowe', 'Systemy pomiarowe', 'Teoria sterowania', 'Badania operacyjne',
                      'Technika mikroprocesorowa', 'Podstawy robotyki', 'Teoria optymalizacji']
-SEARCH_SPACE = [[0, 4], [0, 39]]
+DAYS_SPACE = range(5)
+HOURS_SPACE = range(40)

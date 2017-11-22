@@ -1,5 +1,4 @@
 import random
-from Classwork import Classwork
 
 
 class Student:
@@ -11,11 +10,8 @@ class Student:
 
     def generate_random_timetable(self, subjects):
         for subject in subjects:
-            self.timetable.append(Classwork(subject.name, random.choice(subject.terms)))
+            self.timetable.append(random.choice(subject.terms))
 
     def calculate_student_fitness(self):
-        list_of_days = self.get_days_from_timetable()
         fitness = 0
 
-        for day in list_of_days:
-            class_hours = [hour for hour in list_of_days]
