@@ -17,6 +17,7 @@ class BeeAlgorithm:
     def select_best_bees(self, num_of_best_bees):
         population = self.generate_population()
         sorted_population = sorted(population, key=lambda x: x.calculate_bee_fitness, reverse=True)
+        self.best = sorted_population[0]
         return sorted_population[:num_of_best_bees]
 
     
