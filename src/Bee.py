@@ -8,13 +8,14 @@ class Bee:
         self.subjects = [Subject(name_of_subject) for name_of_subject in names_of_subjects]
         self.fitness = 0
 
-    def generate_random_solution(self):
         for subject in self.subjects:
             subject.generate_random_terms()
-        
+
         for student in self.students:
-            student.generate_random_timetable(self.subjects)
+            student.generate_random_timetable()
 
     def calculate_bee_fitness(self):
+        fitness = 0
         for student in self.students:
-            self.fitness += student.calculate_student_fitness()
+            fitness += student.calculate_student_fitness()
+        return fitness
