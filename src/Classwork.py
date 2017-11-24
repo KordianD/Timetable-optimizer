@@ -1,7 +1,6 @@
 
 
 class Classwork:
-
     def __init__(self, classwork_name, random_day, random_hour):
         self._classwork_name = classwork_name
         self._day = random_day

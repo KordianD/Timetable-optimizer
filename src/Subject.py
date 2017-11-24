@@ -11,7 +11,6 @@ class Subject:
 
     def generate_random_terms(self):
         for _ in range(self.num_of_terms):
-
             random_day = np.random.random_integers(min(DAYS_SPACE), max(DAYS_SPACE))
             random_hour = np.random.random_integers(min(HOURS_SPACE), max(HOURS_SPACE))
 
