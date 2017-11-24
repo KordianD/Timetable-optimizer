@@ -9,7 +9,7 @@ class Subject:
         self.num_of_terms = num_of_terms
         self.terms = []
 
-    def generate_random_terms(self, search_space):
+    def generate_random_terms(self):
         for _ in range(self.num_of_terms):
 
             random_day = np.random.random_integers(min(DAYS_SPACE), max(DAYS_SPACE))
