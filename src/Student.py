@@ -24,7 +24,7 @@ class Student:
 
     def get_classwork_from_one_day(self, day):
         classwork_day = [classwork for classwork in self.timetable if classwork.day == day]
-        return sorted(classwork_day, key=lambda x: x.day)
+        return sorted(classwork_day, key=lambda x: x.hour)
 
     def calculate_day_overlapping(self, day_classwork):
         overlapped_in_minutes = []
@@ -33,8 +33,9 @@ class Student:
 
         return sum(overlapped_in_minutes)
 
-    def calculate_difference_for_one_classwork(self, day_classwork, overlapped_in_minutes, index):
-        for _ in day_classwork[:-1]:
-            slot_difference = day_classwork[index + 1].hour - day_classwork[index].hour
-            if slot_difference < TIME_SLOTS:
-                overlapped_in_minutes.append(slot_difference * DIFFERENCE_BETWEEN_STARTING_CLASSES)
+    def calculate_difference_for_one_classwork(self, day_classwork, overlapped_in_minutes, classwork_index):
+        for index in range(len(day_classwork[:-1])):
+            if index != classwork_index:
+                slot_difference = abs(day_classwork[index].hour - day_classwork[classwork_index].hour)
+                if slot_difference < TIME_SLOTS:
+                    overlapped_in_minutes.append(slot_difference * DIFFERENCE_BETWEEN_STARTING_CLASSES)
