@@ -16,14 +16,15 @@ class BeeAlgorithm:
     def search(self):
         best = None
         for _ in range(self.max_gens):
-            for bee in population:
+            for bee in self.population:
                 bee.calculate_bee_fitness()
-            sorted(population, key=lambda x: x.fitness)
-            best = population[0] if best == None or population[0].fitness < best.fitness
+            sorted(self.population, key=lambda x: x.fitness)
+            if not best or self.population[0].fitness > best.fitness:
+                best = self.population[0]
             next_gen = []
 
-            for index, bee in enumerate(population[:self.num_of_sites]):
-                neigh_size = num_of_elite_bees if index < num_of_elite_sites else num_of_other_bees
+            for index, bee in enumerate(self.population[:self.num_of_sites]):
+                neigh_size = self.num_of_elite_bees if index < self.num_of_elite_sites else self.num_of_other_bees
                 next_gen.append() #TODO
 
 
