@@ -18,4 +18,4 @@ class Bee:
         fitness = 0
         for student in self.students:
             fitness += student.calculate_student_fitness()
-        return fitness
+        self.fitness = fitness

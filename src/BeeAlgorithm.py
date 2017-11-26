@@ -2,14 +2,30 @@ from src.Bee import Bee
 
 
 class BeeAlgorithm:
-    def __init__(self, num_of_bees, num_of_sites, num_of_elite_sites, patch_size, num_of_elite_bees):
+    def __init__(self, num_of_bees, num_of_sites, num_of_elite_sites, patch_size, num_of_elite_bees, num_of_other_bees, max_gens):
         self.num_of_bees = num_of_bees
         self.num_of_sites = num_of_sites
         self.num_of_elite_sites = num_of_elite_sites
         self.patch_size = patch_size
         self.num_of_elite_sites = num_of_elite_bees
+        self.num_of_other_bees = num_of_other_bees
+        self.max_gens = max_gens
         self.population = []
         self.best = None
+
+    def search(self):
+        best = None
+        for _ in range(self.max_gens):
+            for bee in population:
+                bee.calculate_bee_fitness()
+            sorted(population, key=lambda x: x.fitness)
+            best = population[0] if best == None or population[0].fitness < best.fitness
+            next_gen = []
+
+            for index, bee in enumerate(population[:self.num_of_sites]):
+                neigh_size = num_of_elite_bees if index < num_of_elite_sites else num_of_other_bees
+                next_gen.append() #TODO
+
 
     def generate_population(self):
         return [Bee for _ in range(self.num_of_bees)]
@@ -20,4 +36,10 @@ class BeeAlgorithm:
         self.best = sorted_population[0]
         return sorted_population[:num_of_best_bees]
 
-    
+    def search_neigh(self, parent, neigh_size, patch_size):
+        neigh = []
+        for _ in range(neigh_size):
+            neigh.append() #TODO
+        
+    def create_neigh_bee(self):
+        pass #TODO
