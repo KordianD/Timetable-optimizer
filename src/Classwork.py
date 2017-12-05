@@ -5,6 +5,7 @@ class Classwork:
         self._classwork_name = classwork_name
         self._day = random_day
         self._hour = random_hour
+        self._id = id
 
     @property
     def classwork_name(self):
@@ -17,3 +18,7 @@ class Classwork:
     @property
     def hour(self):
         return self._hour
+
+    @property 
+    def id(self):
+        return self._id

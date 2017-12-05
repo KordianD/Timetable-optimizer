@@ -5,7 +5,7 @@ from src.Subject import Subject
 class Bee:
     def __init__(self, num_of_students, names_of_subjects):
         self.students = [Student(id) for id in range(num_of_students)]
-        self.subjects = [Subject(name_of_subject) for name_of_subject in names_of_subjects]
+        self.subjects = [Subject(name_of_subject, index) for index, name_of_subject in enumerate(names_of_subjects)]
         self.fitness = 0
 
         for subject in self.subjects:
