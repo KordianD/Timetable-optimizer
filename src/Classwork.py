@@ -1,7 +1,7 @@
 
 
 class Classwork:
-    def __init__(self, classwork_name, random_day, random_hour):
+    def __init__(self, classwork_name, random_day, random_hour, id):
         self._classwork_name = classwork_name
         self._day = random_day
         self._hour = random_hour
@@ -22,3 +22,7 @@ class Classwork:
     @property 
     def id(self):
         return self._id
+		
+    @hour.setter
+    def hour(self, value):
+        self._hour = value

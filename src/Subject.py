@@ -1,7 +1,6 @@
 import numpy as np
-from src.Classwork import Classwork
-from src.configuration import *
-
+from Classwork import Classwork
+import configuration as conf
 
 class Subject:
     def __init__(self, name, id, num_of_terms=4):
@@ -11,8 +10,8 @@ class Subject:
         self.terms = []
 
     def generate_random_terms(self):
-        for _ in range(self.num_of_terms):
-            random_day = np.random.random_integers(min(DAYS_SPACE), max(DAYS_SPACE))
-            random_hour = np.random.random_integers(min(HOURS_SPACE), max(HOURS_SPACE))
+        for index in range(self.num_of_terms):
+            random_day = np.random.random_integers(min(conf.DAYS_SPACE), max(conf.DAYS_SPACE))
+            random_hour = np.random.random_integers(min(conf.HOURS_SPACE), max(conf.HOURS_SPACE))
 
-            self.terms.append(Classwork(self.name, random_day, random_hour))
+            self.terms.append(Classwork(self.name, random_day, random_hour, index))
