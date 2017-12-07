@@ -1,5 +1,5 @@
-from src.Student import Student
-from src.Subject import Subject
+from Student import Student
+from Subject import Subject
 
 
 class Bee:
@@ -12,7 +12,7 @@ class Bee:
             subject.generate_random_terms()
 
         for student in self.students:
-            student.generate_random_timetable()
+            student.generate_random_timetable(self.subjects)
 
     def calculate_bee_fitness(self):
         fitness = 0

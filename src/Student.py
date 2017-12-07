@@ -1,5 +1,5 @@
 import random
-from src.configuration import *
+import configuration as conf
 
 
 class Student:
@@ -16,7 +16,7 @@ class Student:
 
     def calculate_student_fitness(self):
         fitness = 0
-        for day in DAYS_SPACE:
+        for day in conf.DAYS_SPACE:
             day_classwork = self.get_classwork_from_one_day(day)
             fitness += self.calculate_day_overlapping(day_classwork)
 
@@ -37,5 +37,5 @@ class Student:
         for index in range(len(day_classwork[:-1])):
             if index != classwork_index:
                 slot_difference = abs(day_classwork[index].hour - day_classwork[classwork_index].hour)
-                if slot_difference < TIME_SLOTS:
-                    overlapped_in_minutes.append(slot_difference * DIFFERENCE_BETWEEN_STARTING_CLASSES)
+                if slot_difference < conf.TIME_SLOTS:
+                    overlapped_in_minutes.append(slot_difference * conf.DIFFERENCE_BETWEEN_STARTING_CLASSES)
