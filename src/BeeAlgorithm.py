@@ -2,6 +2,7 @@ import random
 import configuration as conf
 from Bee import Bee
 from Classwork import Classwork
+from Plotter import Plotter
 
 
 class BeeAlgorithm:
@@ -15,6 +16,7 @@ class BeeAlgorithm:
         self.max_gens = max_gens
         self.population = []
         self.best = None
+        self.fitness = []
 
     def search(self):
         best = None
@@ -35,7 +37,7 @@ class BeeAlgorithm:
             self.population = next_gen + scouts
             self.patch_size = self.patch_size * 0.95
             
-            print("#", gen, "patch_size=", self.patch_size, "fitness=", best.fitness)
+            self.fitness.append(best.fitness)
         return best
                 
 
@@ -85,6 +87,12 @@ class BeeAlgorithm:
 
         return scouts_population
 
+    def get_fitness(self):
+        return self.fitness
+
 
 bee_algorithm = BeeAlgorithm(conf.NUM_OF_BEES, conf.NUM_OF_SITES, conf.NUM_OF_ELITE_SITES, conf.PATCH_SIZE, conf.NUM_OF_ELITE_BEES, conf.NUM_OF_OTHER_BEES, conf.MAX_GENS)
 bee_algorithm.search()
+
+plotter = Plotter()
+plotter.plot_cost_function(bee_algorithm.fitness)
