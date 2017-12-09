@@ -3,22 +3,29 @@ from src.Student import Student
 from src.Subject import Subject
 from src.Classwork import Classwork
 
-sub = Subject('First')
+sub = Subject('First', 1)
 
 @pytest.fixture
 def classworks_with_overlapping():
-    classworks = [Classwork('Test', random_day=0, random_hour=hour) for hour in [5, 7, 20]]
+    classworks = [Classwork('Test', random_day=1, random_hour=hour, id=hour) for hour in [5, 7, 20]]
     return classworks
 
 
 @pytest.fixture
 def classworks_without_overlapping():
-    classworks = [Classwork('Test', random_day=0, random_hour=hour) for hour in [5, 15, 30]]
+    classworks = [Classwork('Test', random_day=1, random_hour=hour, id=hour) for hour in [5, 15, 30]]
     return classworks
 
 @pytest.fixture
 def multiple_classworks_with_overlapping():
-    classworks = [Classwork('Test', random_day=day, random_hour=hour) for day in range(5) for hour in [5, 7, 20]]
+    classworks = [Classwork('Test', random_day=day, random_hour=hour, id=hour) for day in range(5) for hour in [5, 7, 20]]
+    return classworks
+
+@pytest.fixture
+def two_classes_starts_the_same_time():
+    first_classwork = Classwork('Test', random_day=1, random_hour=10, id=3)
+    second_classword = Classwork('Test', random_day=1, random_hour=10, id=4)
+    classworks = [first_classwork, second_classword]
     return classworks
 
 
@@ -52,6 +59,15 @@ def test_calculate_student_fitness_with_multiple_overlapping(multiple_classworks
     assert temp.calculate_student_fitness() == 300
 
 
+def test_with_two_classes_starts_the_same_time(two_classes_starts_the_same_time):
+    temp = Student(id=1)
+    first_classwork = Classwork('Test', random_day=1, random_hour=10, id=3)
+    second_classword = Classwork('Test', random_day=1, random_hour=10, id=4)
+    classworks = [first_classwork, second_classword]
+    temp.timetable = classworks
+
+    assert temp.calculate_student_fitness() == 90
 
 
 
+test_with_two_classes_starts_the_same_time(two_classes_starts_the_same_time)

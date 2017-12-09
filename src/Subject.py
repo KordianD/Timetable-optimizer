@@ -1,6 +1,6 @@
 import numpy as np
-from Classwork import Classwork
-import configuration as conf
+from src.Classwork import Classwork
+import src.configuration as conf
 
 class Subject:
     def __init__(self, name, id, num_of_terms=4):

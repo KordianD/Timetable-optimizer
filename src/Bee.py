@@ -1,5 +1,6 @@
-from Student import Student
-from Subject import Subject
+from src.Student import Student
+from src.Subject import Subject
+import random
 
 
 class Bee:
@@ -19,3 +20,6 @@ class Bee:
         for student in self.students:
             fitness += student.calculate_student_fitness()
         self.fitness = fitness
+
+    def get_random_student(self):
+        return random.choice(self.students)
