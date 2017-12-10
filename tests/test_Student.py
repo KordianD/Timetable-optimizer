@@ -66,8 +66,8 @@ def test_calculate_student_fitness_with_multiple_overlapping(multiple_classworks
 
 def test_with_two_classes_starts_the_same_time():
     temp = Student(id=1)
-    first_classwork = Classwork('Test', random_day=1, random_hour=10, id=3)
-    second_classwork = Classwork('Test', random_day=1, random_hour=10, id=4)
+    first_classwork = Classwork('Test', random_day=1, random_hour=18, id=3)
+    second_classwork = Classwork('Test', random_day=1, random_hour=18, id=4)
     classworks = [first_classwork, second_classwork]
     temp.timetable = classworks
 

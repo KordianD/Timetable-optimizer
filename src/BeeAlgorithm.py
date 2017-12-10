@@ -29,7 +29,7 @@ class BeeAlgorithm:
         for gen in range(self.max_gens):
             for bee in self.population:
                 bee.calculate_bee_fitness()
-            sorted(self.population, key=lambda x: x.fitness)
+            self.population = sorted(self.population, key=lambda x: x.fitness)
             if not best or self.population[0].fitness > best.fitness:
                 best = self.population[0]
             next_gen = []
