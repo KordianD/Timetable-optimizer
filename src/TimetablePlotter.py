@@ -8,8 +8,10 @@ day_label = ['Timetable']
 fig_width = 10
 fig_height = 6
 
+
 def convert_hour(hour):
     return STARTING_HOUR + hour * DIFFERENCE_BETWEEN_STARTING_CLASSES_IN_HOURS
+
 
 def plot_timetable(student):
     fig = plt.figure(figsize=(fig_width, fig_height))

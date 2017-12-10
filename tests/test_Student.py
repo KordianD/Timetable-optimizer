@@ -64,15 +64,12 @@ def test_calculate_student_fitness_with_multiple_overlapping(multiple_classworks
     assert temp.calculate_student_fitness() == 300
 
 
-def test_with_two_classes_starts_the_same_time(two_classes_starts_the_same_time):
+def test_with_two_classes_starts_the_same_time():
     temp = Student(id=1)
     first_classwork = Classwork('Test', random_day=1, random_hour=10, id=3)
-    second_classword = Classwork('Test', random_day=1, random_hour=10, id=4)
-    classworks = [first_classwork, second_classword]
+    second_classwork = Classwork('Test', random_day=1, random_hour=10, id=4)
+    classworks = [first_classwork, second_classwork]
     temp.timetable = classworks
 
     assert temp.calculate_student_fitness() == 90
 
-
-
-test_with_two_classes_starts_the_same_time(two_classes_starts_the_same_time)
