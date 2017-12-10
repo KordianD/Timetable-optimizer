@@ -1,5 +1,5 @@
 import matplotlib.pyplot as plt
-from configuration import *
+from src.configuration import *
 
 days = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday']
 colors = ['pink', 'lightgreen', 'lightblue', 'wheat', 'salmon']
@@ -14,16 +14,14 @@ def convert_hour(hour):
 def plot_timetable(student):
     fig = plt.figure(figsize=(fig_width, fig_height))
 
-    print(student.timetable)
-
     for classwork in student.timetable:
         classwork_name = classwork.classwork_name
 
-        day = classwork.day
+        day = classwork.day + 0.52
         start_hour = convert_hour(classwork.hour)
         end_hour = start_hour + DURATION_OF_ONE_CLASSWORK_IN_HOURS
 
-        plt.fill_between([day, day + 0.96], [int(start_hour), int(start_hour)], [int(end_hour), int(end_hour)],
+        plt.fill_between([day, day + 0.96], [start_hour, start_hour], [end_hour, end_hour],
                          color=colors[day], edgecolor='k', linewidth=0.5)
 
 
