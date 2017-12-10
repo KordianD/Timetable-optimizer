@@ -24,7 +24,7 @@ def plot_timetable(student):
         end_hour = start_hour + DURATION_OF_ONE_CLASSWORK_IN_HOURS
 
         plt.fill_between([day, day + 0.96], [start_hour, start_hour], [end_hour, end_hour],
-                         color=colors[day], edgecolor='k', linewidth=0.5)
+                         color=colors[int(day)], edgecolor='k', linewidth=0.5)
 
 
         # plot beginning time
