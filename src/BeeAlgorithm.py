@@ -30,7 +30,7 @@ class BeeAlgorithm:
             for bee in self.population:
                 bee.calculate_bee_fitness()
             self.population = sorted(self.population, key=lambda x: x.fitness)
-            if not best or self.population[0].fitness > best.fitness:
+            if not best or self.population[0].fitness < best.fitness:
                 best = self.population[0]
             next_gen = []
 
@@ -63,7 +63,7 @@ class BeeAlgorithm:
         for subject_index, subject in enumerate(parent.subjects):
             for term_index, term in enumerate(subject.terms):
                 random_number = random.random()
-                new_hour = term.hour + random_number * patch_size if random_number < 0.5 else term.hour - random_number * patch_size 
+                new_hour = term.hour + 10*(random_number * patch_size) if random_number < 0.5 else term.hour - 10*(random_number * patch_size)
                 if new_hour > conf.HOURS_SPACE[-1]:
                     new_hour = conf.HOURS_SPACE[-1]
                 elif new_hour < conf.HOURS_SPACE[0]:
@@ -105,4 +105,4 @@ for elem in best.students:
     for eleme in elem.timetable:
         print('Day ' + str(eleme.day) + '   hour : ' + str(eleme.hour))
 
-#plot_timetable(best.get_random_student())
+plot_timetable(best.get_random_student())
