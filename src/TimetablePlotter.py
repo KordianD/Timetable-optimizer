@@ -3,7 +3,7 @@ from src.configuration import *
 
 days = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday']
 colors = ['pink', 'lightgreen', 'lightblue', 'wheat', 'salmon']
-day_label = ['Timetable']
+day_label = 'Timetable'
 
 fig_width = 10
 fig_height = 6
@@ -39,7 +39,7 @@ def plot_timetable(student):
     ax=fig.add_subplot(111)
     ax.yaxis.grid()
     ax.set_xlim(0.5, len(days) + 0.5)
-    ax.set_ylim(15.1, 8.9)
+    ax.set_ylim(20, 8)
     ax.set_xticks(range(1, len(days) + 1))
     ax.set_xticklabels(days)
     ax.set_ylabel('Time')
