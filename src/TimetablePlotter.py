@@ -35,8 +35,7 @@ def plot_timetable(student):
         plt.text(day + 0.48, (start_hour + end_hour) * 0.5, classwork_name, ha='center', va='center', fontsize=11)
 
 
-    # Set Axis
-    ax=fig.add_subplot(111)
+    ax = fig.add_subplot(111)
     ax.yaxis.grid()
     ax.set_xlim(0.5, len(days) + 0.5)
     ax.set_ylim(20, 8)
@@ -44,8 +43,7 @@ def plot_timetable(student):
     ax.set_xticklabels(days)
     ax.set_ylabel('Time')
 
-    # Set Second Axis
-    ax2=ax.twiny().twinx()
+    ax2 = ax.twiny().twinx()
     ax2.set_xlim(ax.get_xlim())
     ax2.set_ylim(ax.get_ylim())
     ax2.set_xticks(ax.get_xticks())

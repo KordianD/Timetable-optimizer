@@ -20,7 +20,6 @@ class BeeAlgorithm:
         self.num_of_other_bees = num_of_other_bees
         self.max_gens = max_gens
         self.population = []
-        self.best = None
         self.fitness = []
 
     def search(self):
@@ -88,12 +87,9 @@ class BeeAlgorithm:
     def get_fitness(self):
         return self.fitness
 
-    def get_best_solution(self):
-        return self.best
-
 
 bee_algorithm = BeeAlgorithm(conf.NUM_OF_BEES, conf.NUM_OF_SITES, conf.NUM_OF_ELITE_SITES, conf.PATCH_SIZE, conf.NUM_OF_ELITE_BEES, conf.NUM_OF_OTHER_BEES, conf.MAX_GENS)
-best = bee_algorithm.search()
+best_found = bee_algorithm.search()
 
 plotter = Plotter()
 
@@ -101,8 +97,8 @@ plotter.plot_cost_function(bee_algorithm.fitness)
 
 
 print('BEST')
-for elem in best.students:
+for elem in best_found.students:
     for eleme in elem.timetable:
         print('Day ' + str(eleme.day) + '   hour : ' + str(eleme.hour))
 
-plot_timetable(best.get_random_student())
+plot_timetable(best_found.get_random_student())
