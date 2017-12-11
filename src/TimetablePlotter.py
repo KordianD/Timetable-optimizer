@@ -12,6 +12,10 @@ fig_height = 6
 def convert_hour(hour):
     return STARTING_HOUR + hour * DIFFERENCE_BETWEEN_STARTING_CLASSES_IN_HOURS
 
+def convert_hour_to_text(hour):
+    return (STARTING_HOUR + hour * DIFFERENCE_BETWEEN_STARTING_CLASSES // MINUTES_IN_HOUR,
+            hour * DIFFERENCE_BETWEEN_STARTING_CLASSES % MINUTES_IN_HOUR)
+
 
 def plot_timetable(student):
     fig = plt.figure(figsize=(fig_width, fig_height))
@@ -27,13 +31,11 @@ def plot_timetable(student):
                          color=colors[int(day)], edgecolor='k', linewidth=0.5)
 
 
-        # plot beginning time
-        plt.text(day + 0.02, start_hour + 0.05, '{0}:{1:0>2}'.format(int(start_hour), start_hour - int(start_hour)),
+        timetable_hour = convert_hour_to_text(classwork.hour)
+        plt.text(day + 0.02, start_hour + 0.05, '{0}:{1:0>2}'.format(int(timetable_hour[0]), int(timetable_hour[1])),
                  va='top', fontsize=7)
 
-        # plot event name
         plt.text(day + 0.48, (start_hour + end_hour) * 0.5, classwork_name, ha='center', va='center', fontsize=11)
-
 
     ax = fig.add_subplot(111)
     ax.yaxis.grid()
@@ -50,9 +52,7 @@ def plot_timetable(student):
     ax2.set_xticklabels(days)
     ax2.set_ylabel('Time')
 
-
     plt.title(day_label, y=1.07)
-    plt.savefig('{0}.png'.format(day_label), dpi=200)
 
     plt.show()
 

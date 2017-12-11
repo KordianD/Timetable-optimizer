@@ -10,6 +10,7 @@ NUM_OF_SITES = 3
 NUM_OF_ELITE_SITES = 1
 PATCH_SIZE = 3.0
 MAX_GENS = 500
+MINUTES_IN_HOUR = 60
 DIFFERENCE_BETWEEN_STARTING_CLASSES_IN_HOURS = 0.25
 STARTING_HOUR = 8
 NAMES_OF_SUBJECTS = ['Sieci komputerowe', 'Systemy pomiarowe', 'Teoria sterowania', 'Badania operacyjne',
