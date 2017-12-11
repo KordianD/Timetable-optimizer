@@ -27,27 +27,38 @@ class BeeAlgorithm:
         best = None
         self.population = self.generate_population()
         for gen in range(self.max_gens):
-            for bee in self.population:
-                bee.calculate_bee_fitness()
-            self.population = sorted(self.population, key=lambda x: x.fitness)
-            if not best or self.population[0].fitness < best.fitness:
-                best = deepcopy(self.population[0])
-                
-            next_gen = []
-
-            for index, bee in enumerate(self.population[:self.num_of_sites]):
-                neigh_size = self.num_of_elite_bees if index < self.num_of_elite_sites else self.num_of_other_bees
-                next_gen.append(self.search_neigh(bee, neigh_size, self.patch_size))
-
-            scouts = self.create_scout_bees(self.num_of_bees - self.num_of_sites)
-            self.population = next_gen + scouts
-            self.patch_size = self.patch_size * 0.95
+            best = self.choose_best_solution(best)
+            self.update_population()
             
             self.fitness.append(best.fitness)
         return best
 
     def generate_population(self):
         return [Bee(conf.NUM_OF_STUDENTS, conf.NAMES_OF_SUBJECTS) for _ in range(self.num_of_bees)]
+
+    def choose_best_solution(self, best):
+        for bee in self.population:
+            bee.calculate_bee_fitness()
+        self.population = sorted(self.population, key=lambda x: x.fitness)
+        if not best or self.population[0].fitness < best.fitness:
+            best = deepcopy(self.population[0])
+            print(best.fitness)
+            
+        return best
+
+    def generate_next_gen(self):
+        next_gen = []
+        for index, bee in enumerate(self.population[:self.num_of_sites]):
+                neigh_size = self.num_of_elite_bees if index < self.num_of_elite_sites else self.num_of_other_bees
+                next_gen.append(self.search_neigh(bee, neigh_size, self.patch_size))
+        
+        return next_gen
+    
+    def update_population(self):
+        next_gen = self.generate_next_gen()
+        scouts = self.create_scout_bees(self.num_of_bees - self.num_of_sites)
+        self.population = next_gen + scouts
+        self.patch_size = self.patch_size * conf.PATCH_SIZE_DECREASE_FACTOR
 
     def search_neigh(self, parent, neigh_size, patch_size):
         neigh = []
@@ -60,31 +71,47 @@ class BeeAlgorithm:
         return sorted(neigh, key=lambda x: x.fitness)[0]
         
     def create_neigh_bee(self, parent, patch_size):
-        new_bee = parent
+        new_bee = deepcopy(parent)
         for subject_index, subject in enumerate(parent.subjects):
-            for term_index, term in enumerate(subject.terms):
-                random_number = random.random()
-                new_hour = term.hour + 10*(random_number * patch_size) if random_number < 0.5 else term.hour - 10*(random_number * patch_size)
-                if new_hour > conf.HOURS_SPACE[-1]:
-                    new_hour = conf.HOURS_SPACE[-1]
-                elif new_hour < conf.HOURS_SPACE[0]:
-                    new_hour = conf.HOURS_SPACE[0]
-
-                new_bee.subjects[subject_index].terms[term_index] = Classwork(term.classwork_name, term.day, new_hour, term.id)
-
-                for student_index, student in enumerate(new_bee.students):
-                    for classwork_index, classwork in enumerate(student.timetable):
-                        if classwork.classwork_name == term.classwork_name and classwork.id == term.id:
-                            classwork.hour = new_hour 
+            new_bee = self.change_term_hour(new_bee, subject, patch_size, subject_index)
 
         return new_bee
-
+    
     def create_scout_bees(self, num_of_scouts):
         scouts_population = []
         for _ in range(num_of_scouts):
             scouts_population.append(Bee(conf.NUM_OF_STUDENTS, conf.NAMES_OF_SUBJECTS))
 
         return scouts_population
+    
+    def change_term_hour(self, bee, subject, patch_size, subject_index):
+        for term_index, term in enumerate(subject.terms):
+            new_hour = self.choose_new_hour(term, patch_size)
+            bee.subjects[subject_index].terms[term_index] = Classwork(term.classwork_name, term.day, new_hour, term.id)
+            bee = self.update_students(bee, term, new_hour)
+            
+        return bee
+    
+    def choose_new_hour(self, term, patch_size):
+        random_number = random.random()
+        new_hour = term.hour + 10*(random_number * patch_size) if random_number < 0.5 else term.hour - 10*(random_number * patch_size)
+        if new_hour > conf.HOURS_SPACE[-1]:
+            new_hour = conf.HOURS_SPACE[-1]
+        elif new_hour < conf.HOURS_SPACE[0]:
+            new_hour = conf.HOURS_SPACE[0]
+            
+        return new_hour
+    
+    def update_students(self, bee, term, new_hour):
+        for student in bee.students:
+            student = self.update_student_classwork(student, term, new_hour)
+        return bee
+    
+    def update_student_classwork(self, student, term, new_hour):
+        for classwork in student.timetable:
+            if classwork.classwork_name == term.classwork_name and classwork.id == term.id:
+                classwork.hour = new_hour
+        return student
 
     def get_fitness(self):
         return self.fitness
