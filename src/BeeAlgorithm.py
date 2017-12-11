@@ -3,6 +3,7 @@ import os.path
 sys.path.append(os.path.join(os.path.dirname(__file__), '..'))
 
 import random
+from copy import deepcopy
 import src.configuration as conf
 from src.Bee import Bee
 from src.Classwork import Classwork
@@ -30,7 +31,8 @@ class BeeAlgorithm:
                 bee.calculate_bee_fitness()
             self.population = sorted(self.population, key=lambda x: x.fitness)
             if not best or self.population[0].fitness < best.fitness:
-                best = self.population[0]
+                best = deepcopy(self.population[0])
+                
             next_gen = []
 
             for index, bee in enumerate(self.population[:self.num_of_sites]):
