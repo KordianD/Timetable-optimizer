@@ -95,6 +95,7 @@ class BeeAlgorithm:
     def choose_new_hour(self, term, patch_size):
         random_number = random.random()
         new_hour = term.hour + 10*(random_number * patch_size) if random_number < 0.5 else term.hour - 10*(random_number * patch_size)
+        new_hour = round(new_hour)
         if new_hour > conf.HOURS_SPACE[-1]:
             new_hour = conf.HOURS_SPACE[-1]
         elif new_hour < conf.HOURS_SPACE[0]:
@@ -130,4 +131,5 @@ for elem in best_found.students:
     for eleme in elem.timetable:
         print('Day ' + str(eleme.day) + '   hour : ' + str(eleme.hour))
 
-plot_timetable(best_found.get_random_student())
+plot_timetable(best_found.get_student_with_max_fitness())
+print(best_found.get_student_with_max_fitness().fitness)

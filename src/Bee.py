@@ -23,3 +23,11 @@ class Bee:
 
     def get_random_student(self):
         return random.choice(self.students)
+    
+    def get_student_with_max_fitness(self):
+        student_with_max_fitness = None
+        for student in self.students:
+            if not student_with_max_fitness or student.fitness > student_with_max_fitness.fitness:
+                student_with_max_fitness = student
+                
+        return student_with_max_fitness

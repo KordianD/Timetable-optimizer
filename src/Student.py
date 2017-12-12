@@ -19,7 +19,8 @@ class Student:
         for day in conf.DAYS_SPACE:
             day_classwork = self.get_classwork_from_one_day(day)
             fitness += self.calculate_day_overlapping(day_classwork)
-
+            
+        self.fitness = fitness
         return fitness
 
     def get_classwork_from_one_day(self, day):
