@@ -12,6 +12,7 @@ fig_height = 6
 def convert_hour(hour):
     return STARTING_HOUR + hour * DIFFERENCE_BETWEEN_STARTING_CLASSES_IN_HOURS
 
+
 def convert_hour_to_text(hour):
     return (STARTING_HOUR + hour * DIFFERENCE_BETWEEN_STARTING_CLASSES // MINUTES_IN_HOUR,
             hour * DIFFERENCE_BETWEEN_STARTING_CLASSES % MINUTES_IN_HOUR)
@@ -29,7 +30,6 @@ def plot_timetable(student):
 
         plt.fill_between([day, day + 0.96], [start_hour, start_hour], [end_hour, end_hour],
                          color=colors[int(day)], edgecolor='k', linewidth=0.5)
-
 
         timetable_hour = convert_hour_to_text(classwork.hour)
         plt.text(day + 0.02, start_hour + 0.05, '{0}:{1:0>2}'.format(int(timetable_hour[0]), int(timetable_hour[1])),

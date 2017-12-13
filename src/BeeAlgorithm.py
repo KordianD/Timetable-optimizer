@@ -22,11 +22,13 @@ class BeeAlgorithm:
         self.max_gens = max_gens
         self.population = []
         self.fitness = []
+        self.training = []
 
     def search(self):
         best = None
         self.population = self.generate_population()
         for gen in range(self.max_gens):
+            print('Gen : ' + str(gen))
             best = self.choose_best_solution(best)
             self.update_population()
             
@@ -40,10 +42,11 @@ class BeeAlgorithm:
         for bee in self.population:
             bee.calculate_bee_fitness()
         self.population = sorted(self.population, key=lambda x: x.fitness)
+        self.training.append(self.population[0].fitness)
         if not best or self.population[0].fitness < best.fitness:
             best = deepcopy(self.population[0])
             print(best.fitness)
-            
+
         return best
 
     def generate_next_gen(self):
@@ -94,7 +97,7 @@ class BeeAlgorithm:
     
     def choose_new_hour(self, term, patch_size):
         random_number = random.random()
-        new_hour = term.hour + 10*(random_number * patch_size) if random_number < 0.5 else term.hour - 10*(random_number * patch_size)
+        new_hour = term.hour + random_number * patch_size if random_number < 0.5 else term.hour - random_number * patch_size
         new_hour = round(new_hour)
         if new_hour > conf.HOURS_SPACE[-1]:
             new_hour = conf.HOURS_SPACE[-1]
@@ -105,17 +108,19 @@ class BeeAlgorithm:
     
     def update_students(self, bee, term, new_hour):
         for student in bee.students:
-            student = self.update_student_classwork(student, term, new_hour)
+            self.update_student_classwork(student, term, new_hour)
         return bee
     
     def update_student_classwork(self, student, term, new_hour):
         for classwork in student.timetable:
             if classwork.classwork_name == term.classwork_name and classwork.id == term.id:
                 classwork.hour = new_hour
-        return student
 
     def get_fitness(self):
         return self.fitness
+
+    def get_training_process(self):
+        return self.training
 
 
 bee_algorithm = BeeAlgorithm(conf.NUM_OF_BEES, conf.NUM_OF_SITES, conf.NUM_OF_ELITE_SITES, conf.PATCH_SIZE, conf.NUM_OF_ELITE_BEES, conf.NUM_OF_OTHER_BEES, conf.MAX_GENS)
@@ -126,10 +131,7 @@ plotter = Plotter()
 plotter.plot_cost_function(bee_algorithm.fitness)
 
 
-print('BEST')
-for elem in best_found.students:
-    for eleme in elem.timetable:
-        print('Day ' + str(eleme.day) + '   hour : ' + str(eleme.hour))
-
 plot_timetable(best_found.get_student_with_max_fitness())
 print(best_found.get_student_with_max_fitness().fitness)
+
+plotter.plot_cost_function(bee_algorithm.get_training_process())
