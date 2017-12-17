@@ -33,6 +33,12 @@ class BeeAlgorithm:
             self.update_population()
             
             self.fitness.append(best.fitness)
+        
+        print("Num of students: ")
+        for index, subject in enumerate(best.subjects):
+            print("Zajęcia #", index)
+            for term in subject.terms:
+                print(term.num_of_students)
         return best
 
     def generate_population(self):
