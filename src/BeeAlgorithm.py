@@ -30,6 +30,8 @@ class BeeAlgorithm:
         best = None
         self.population = self.generate_population()
         for gen in range(self.max_gens):
+            if best and best.fitness == 0:
+                break
             print('Gen : ' + str(gen))
             best = self.choose_best_solution(best)
             self.update_population()
@@ -41,6 +43,7 @@ class BeeAlgorithm:
             print("Zajęcia #", index)
             for term in subject.terms:
                 print(term.num_of_students)
+        self.final_best = best
         return best
 
     def generate_population(self):
@@ -152,5 +155,6 @@ for num_of_students in range(50, 90, 10):
         conf.NUM_OF_STUDENTS = num_of_students
         bee_algorithm = BeeAlgorithm(conf.NUM_OF_BEES, conf.NUM_OF_SITES, conf.NUM_OF_ELITE_SITES, conf.PATCH_SIZE,
                                      conf.NUM_OF_ELITE_BEES, conf.NUM_OF_OTHER_BEES, conf.MAX_GENS)
+        bee_algorithm.search()
         with open('{}_{}'.format(num_of_students, index), 'wb') as f:
             pickle.dump(bee_algorithm, f)
