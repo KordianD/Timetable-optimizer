@@ -24,10 +24,11 @@ class BeeAlgorithm:
         self.population = []
         self.fitness = []
         self.training = []
+        self.final_best = None
 
     def search(self):
         best = None
-        starting_population_pickle = open('startingPopulation.pickle', 'rb')
+        starting_population_pickle = open('src/startingPopulation.pickle', 'rb')
         self.population = pickle.load(starting_population_pickle)
         starting_population_pickle.close()
         for gen in range(self.max_gens):
@@ -56,6 +57,7 @@ class BeeAlgorithm:
             best = deepcopy(self.population[0])
             print(best.fitness)
 
+        self.final_best = best
         return best
 
     def generate_next_gen(self):
@@ -135,12 +137,22 @@ class BeeAlgorithm:
 bee_algorithm = BeeAlgorithm(conf.NUM_OF_BEES, conf.NUM_OF_SITES, conf.NUM_OF_ELITE_SITES, conf.PATCH_SIZE, conf.NUM_OF_ELITE_BEES, conf.NUM_OF_OTHER_BEES, conf.MAX_GENS)
 best_found = bee_algorithm.search()
 
-plotter = Plotter()
+#plotter = Plotter()
 
-plotter.plot_cost_function(bee_algorithm.fitness)
+#plotter.plot_cost_function(bee_algorithm.fitness)
 
 
-plot_timetable(best_found.get_student_with_max_fitness())
-print(best_found.get_student_with_max_fitness().fitness)
+#plot_timetable(best_found.get_student_with_max_fitness())
+#print(best_found.get_student_with_max_fitness().fitness)
 
-plotter.plot_cost_function(bee_algorithm.get_training_process())
+#plotter.plot_cost_function(bee_algorithm.get_training_process())
+
+names = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T']
+for num_of_students in range(10, 130, 10):
+    for index in [5, 10, 15, 20]:
+        conf.NAMES_OF_SUBJECTS = names[:index]
+        conf.NUM_OF_STUDENTS = num_of_students
+        bee_algorithm = BeeAlgorithm(conf.NUM_OF_BEES, conf.NUM_OF_SITES, conf.NUM_OF_ELITE_SITES, conf.PATCH_SIZE,
+                                     conf.NUM_OF_ELITE_BEES, conf.NUM_OF_OTHER_BEES, conf.MAX_GENS)
+        with open('{}_{}'.format(num_of_students, index), 'wb') as f:
+            pickle.dump(bee_algorithm, f)
