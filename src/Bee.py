@@ -1,12 +1,14 @@
 from src.Student import Student
 from src.Subject import Subject
+from src.configuration import MAX_NUM_OF_STUDENTS, SPARE_TERMS
 import random
 
 
 class Bee:
     def __init__(self, num_of_students, names_of_subjects):
         self.students = [Student(id) for id in range(num_of_students)]
-        self.subjects = [Subject(name_of_subject, index) for index, name_of_subject in enumerate(names_of_subjects)]
+        self.num_of_terms = num_of_students // MAX_NUM_OF_STUDENTS + SPARE_TERMS
+        self.subjects = [Subject(name_of_subject, index, self.num_of_terms) for index, name_of_subject in enumerate(names_of_subjects)]
         self.fitness = 0
 
         for subject in self.subjects:

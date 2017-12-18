@@ -147,9 +147,9 @@ best_found = bee_algorithm.search()
 
 #plotter.plot_cost_function(bee_algorithm.get_training_process())
 
-names = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T']
-for num_of_students in range(10, 130, 10):
-    for index in [5, 10, 15, 20]:
+names = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J']
+for num_of_students in range(50, 130, 10):
+    for index in [5, 7, 10]:
         conf.NAMES_OF_SUBJECTS = names[:index]
         conf.NUM_OF_STUDENTS = num_of_students
         bee_algorithm = BeeAlgorithm(conf.NUM_OF_BEES, conf.NUM_OF_SITES, conf.NUM_OF_ELITE_SITES, conf.PATCH_SIZE,
