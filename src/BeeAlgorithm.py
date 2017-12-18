@@ -28,9 +28,7 @@ class BeeAlgorithm:
 
     def search(self):
         best = None
-        starting_population_pickle = open('src/startingPopulation.pickle', 'rb')
-        self.population = pickle.load(starting_population_pickle)
-        starting_population_pickle.close()
+        self.population = self.generate_population()
         for gen in range(self.max_gens):
             print('Gen : ' + str(gen))
             best = self.choose_best_solution(best)
@@ -148,7 +146,7 @@ best_found = bee_algorithm.search()
 #plotter.plot_cost_function(bee_algorithm.get_training_process())
 
 names = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J']
-for num_of_students in range(50, 130, 10):
+for num_of_students in range(50, 90, 10):
     for index in [5, 7, 10]:
         conf.NAMES_OF_SUBJECTS = names[:index]
         conf.NUM_OF_STUDENTS = num_of_students
