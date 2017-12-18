@@ -12,7 +12,6 @@ class Student:
 
     def generate_random_timetable(self, subjects):
         for subject in subjects:
-            random_term = None
             while True:
                 random_term = random.choice(subject.terms)
                 if random_term.num_of_students < conf.MAX_NUM_OF_STUDENTS:
