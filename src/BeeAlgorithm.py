@@ -9,6 +9,7 @@ from src.Bee import Bee
 from src.Classwork import Classwork
 from src.Plotter import Plotter
 from src.TimetablePlotter import *
+import pickle
 
 
 class BeeAlgorithm:
@@ -26,7 +27,9 @@ class BeeAlgorithm:
 
     def search(self):
         best = None
-        self.population = self.generate_population()
+        starting_population_pickle = open('startingPopulation.pickle', 'rb')
+        self.population = pickle.load(starting_population_pickle)
+        starting_population_pickle.close()
         for gen in range(self.max_gens):
             print('Gen : ' + str(gen))
             best = self.choose_best_solution(best)
@@ -96,7 +99,7 @@ class BeeAlgorithm:
     def change_term_hour(self, bee, subject, patch_size, subject_index):
         for term_index, term in enumerate(subject.terms):
             new_hour = self.choose_new_hour(term, patch_size)
-            bee.subjects[subject_index].terms[term_index] = Classwork(term.classwork_name, term.day, new_hour, term.id)
+            bee.subjects[subject_index].terms[term_index] = Classwork(term.classwork_name, term.day, new_hour, term.id, term.num_of_students)
             bee = self.update_students(bee, term, new_hour)
             
         return bee

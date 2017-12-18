@@ -1,12 +1,12 @@
 
 
 class Classwork:
-    def __init__(self, classwork_name, random_day, random_hour, id):
+    def __init__(self, classwork_name, random_day, random_hour, id, num_of_students=0):
         self._classwork_name = classwork_name
         self._day = random_day
         self._hour = random_hour
         self._id = id
-        self._num_of_students = 0
+        self._num_of_students = num_of_students
 
     @property
     def classwork_name(self):
