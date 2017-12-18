@@ -24,7 +24,7 @@ class BeeAlgorithm:
         self.population = []
         self.fitness = []
         self.training = []
-        self.final_best = None
+        self.returned_best = None
 
     def search(self):
         best = None
@@ -43,7 +43,7 @@ class BeeAlgorithm:
             print("Zajęcia #", index)
             for term in subject.terms:
                 print(term.num_of_students)
-        self.final_best = best
+        self.returned_best = best
         return best
 
     def generate_population(self):
@@ -58,7 +58,6 @@ class BeeAlgorithm:
             best = deepcopy(self.population[0])
             print(best.fitness)
 
-        self.final_best = best
         return best
 
     def generate_next_gen(self):
