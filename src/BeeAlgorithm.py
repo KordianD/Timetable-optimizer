@@ -7,9 +7,6 @@ from copy import deepcopy
 import src.configuration as conf
 from src.Bee import Bee
 from src.Classwork import Classwork
-from src.Plotter import Plotter
-from src.TimetablePlotter import *
-import pickle
 
 
 class BeeAlgorithm:
@@ -108,13 +105,10 @@ class BeeAlgorithm:
     
     def choose_new_hour(self, term, patch_size):
         random_number = random.random()
-        new_hour = term.hour + random_number * patch_size if random_number < 0.5 else term.hour - random_number * patch_size
-        new_hour = round(new_hour)
-        if new_hour > conf.HOURS_SPACE[-1]:
-            new_hour = conf.HOURS_SPACE[-1]
-        elif new_hour < conf.HOURS_SPACE[0]:
-            new_hour = conf.HOURS_SPACE[0]
-            
+        new_hour = round(term.hour + random_number * patch_size if random_number < 0.5 else term.hour - random_number * patch_size)
+        new_hour = min(new_hour, conf.HOURS_SPACE[-1])
+        new_hour = max(new_hour, conf.HOURS_SPACE[0])
+
         return new_hour
     
     def update_students(self, bee, term, new_hour):
@@ -132,15 +126,3 @@ class BeeAlgorithm:
 
     def get_training_process(self):
         return self.training
-
-
-names = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J']
-for num_of_students in range(50, 60, 10):
-    for index in [5]:
-        conf.NAMES_OF_SUBJECTS = names[:index]
-        conf.NUM_OF_STUDENTS = num_of_students
-        bee_algorithm = BeeAlgorithm(conf.NUM_OF_BEES, conf.NUM_OF_SITES, conf.NUM_OF_ELITE_SITES, conf.PATCH_SIZE,
-                                     conf.NUM_OF_ELITE_BEES, conf.NUM_OF_OTHER_BEES, conf.MAX_GENS)
-        bee_algorithm.search()
-        with open('{}_{}'.format(num_of_students, index), 'wb') as f:
-            pickle.dump(bee_algorithm, f, pickle.HIGHEST_PROTOCOL)
