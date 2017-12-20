@@ -26,7 +26,7 @@ class Student:
             day_classwork = self.get_classwork_from_one_day(day)
             fitness += self.calculate_day_overlapping(day_classwork)
 
-        not_free_days_penalty = self.calculate_not_free_days() * conf.PENALTY_FOR_NOT_FREE_DAYS
+        not_free_days_penalty = self.penalty_for_not_free_days()
         self.fitness = fitness + not_free_days_penalty
         return fitness + not_free_days_penalty
 
@@ -36,6 +36,10 @@ class Student:
             not_free.add(classwork.day)
 
         return len(not_free)
+
+    def penalty_for_not_free_days(self):
+        not_free_days = self.calculate_not_free_days()
+        return max(not_free_days - conf.NOT_FREE_DAYS_ALLOWED, 0) * conf.PENALTY_FOR_NOT_FREE_DAYS
 
     def get_classwork_from_one_day(self, day):
         classwork_day = [classwork for classwork in self.timetable if classwork.day == day]
