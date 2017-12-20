@@ -134,26 +134,13 @@ class BeeAlgorithm:
         return self.training
 
 
-#bee_algorithm = BeeAlgorithm(conf.NUM_OF_BEES, conf.NUM_OF_SITES, conf.NUM_OF_ELITE_SITES, conf.PATCH_SIZE, conf.NUM_OF_ELITE_BEES, conf.NUM_OF_OTHER_BEES, conf.MAX_GENS)
-#best_found = bee_algorithm.search()
-
-#plotter = Plotter()
-
-#plotter.plot_cost_function(bee_algorithm.fitness)
-
-
-#plot_timetable(best_found.get_student_with_max_fitness())
-#print(best_found.get_student_with_max_fitness().fitness)
-
-#plotter.plot_cost_function(bee_algorithm.get_training_process())
-
 names = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J']
-for num_of_students in range(50, 90, 10):
-    for index in [5, 7, 10]:
+for num_of_students in range(50, 60, 10):
+    for index in [5]:
         conf.NAMES_OF_SUBJECTS = names[:index]
         conf.NUM_OF_STUDENTS = num_of_students
         bee_algorithm = BeeAlgorithm(conf.NUM_OF_BEES, conf.NUM_OF_SITES, conf.NUM_OF_ELITE_SITES, conf.PATCH_SIZE,
                                      conf.NUM_OF_ELITE_BEES, conf.NUM_OF_OTHER_BEES, conf.MAX_GENS)
         bee_algorithm.search()
         with open('{}_{}'.format(num_of_students, index), 'wb') as f:
-            pickle.dump(bee_algorithm, f)
+            pickle.dump(bee_algorithm, f, pickle.HIGHEST_PROTOCOL)
