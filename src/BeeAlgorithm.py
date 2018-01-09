@@ -27,7 +27,7 @@ class BeeAlgorithm:
         best = None
         self.population = self.generate_population()
         for gen in range(self.max_gens):
-            if best and best.fitness == 0:
+            if best and best.fitness < conf.ALLOWED_FITNESS:
                 break
             print('Gen : ' + str(gen))
             best = self.choose_best_solution(best)

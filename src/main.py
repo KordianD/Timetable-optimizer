@@ -8,8 +8,8 @@ from src.BeeAlgorithm import BeeAlgorithm
 
 
 names = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J']
-for num_of_students in range(50, 60, 10):
-    for index in [5]:
+for num_of_students in range(50, 90, 10):
+    for index in [5, 6, 7]:
         conf.NAMES_OF_SUBJECTS = names[:index]
         conf.NUM_OF_STUDENTS = num_of_students
         bee_algorithm = BeeAlgorithm(conf.NUM_OF_BEES, conf.NUM_OF_SITES, conf.NUM_OF_ELITE_SITES, conf.PATCH_SIZE,
