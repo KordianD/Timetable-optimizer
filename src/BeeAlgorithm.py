@@ -22,12 +22,15 @@ class BeeAlgorithm:
         self.fitness = []
         self.training = []
         self.returned_best = None
+        print('num of students')
+        print(conf.NUM_OF_STUDENTS)
+
 
     def search(self):
         best = None
         self.population = self.generate_population()
         for gen in range(self.max_gens):
-            if best and best.fitness < conf.ALLOWED_FITNESS:
+            if best and best.fitness == 0:
                 break
             print('Gen : ' + str(gen))
             best = self.choose_best_solution(best)

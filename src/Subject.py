@@ -4,7 +4,7 @@ import src.configuration as conf
 
 
 class Subject:
-    def __init__(self, name, id, num_of_terms=4):
+    def __init__(self, name, id, num_of_terms):
         self.id = id
         self.name = name
         self.num_of_terms = num_of_terms
